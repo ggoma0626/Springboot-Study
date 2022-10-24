@@ -1,0 +1,44 @@
+// 스프링 부트의 의존성들을 관리해 주는 플러그인 ( 필수 ! )
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+}
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+
+//  각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
+repositories {
+    mavenCentral()
+    jcenter()
+}
+/* Junit5를 사용하기 위해서는 필수로 선언되어야 한다.
+    Junit이란? test코드를 위해서 사용되는것으로 크게 단위테스트, 통합테스트로 나뉨
+    단위 테스트는 프로젝트에 필요한 하나 하나의 기능에 대한 테스트를 각각 진행하는 것
+    통합 테스트는 여러개의 단위(기능)이 잘 어우러져 전체 플로우가 제대로 동작하는지 확인하는 것
+ */
+test { // (2)
+    useJUnitPlatform()
+}
+
+
+//  프로젝트 개발에 필요한 의존성들을 선언하는 곳
+dependencies {
+    //(3)
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    // lombok
+    implementation('org.projectlombok:lombok')
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation("org.mariadb.jdbc:mariadb-java-client")
+    implementation('com.h2database:h2')
+}
